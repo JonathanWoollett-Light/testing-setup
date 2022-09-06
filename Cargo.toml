@@ -1,0 +1,10 @@
+# All binaries are in the root of the workspace.
+
+# Modules within binaries and libraries should be prefered over libraries in the root, libraries should be used only
+# when neccessary (it may be neccessary when they are shared between binaries or exported with `cargo publish`)
+[workspace]
+members = [
+    "complex_application",
+    "simple_application",
+    "library_one"
+]
