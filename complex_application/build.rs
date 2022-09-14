@@ -1,5 +1,5 @@
 fn main() {
-    println!("cargo:rerun-if-changed=setup.py");
+    println!("cargo:rerun-if-changed=./setup.py");
     // Run setup script
     let output = std::process::Command::new("gnome-terminal")
         .args(&["--wait", "--", "python3", "setup.py"])
