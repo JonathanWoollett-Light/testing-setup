@@ -1,10 +1,18 @@
-fn main() {
-    println!("cargo:rerun-if-changed=./setup.py");
-    // Run setup script
-    let output = std::process::Command::new("gnome-terminal")
-        .args(&["--wait", "--", "python3", "setup.py"])
+const DEPS: [&str; 2] = ["gcc", "python3"];
+
+fn check(x: &str) {
+    let output = std::process::Command::new("dpkg")
+        .args(&["-l", x])
         .output()
         .unwrap();
-    // Assert script succeeded
-    assert_eq!(output.status.code(), Some(0));
+    match output.status.code() {
+        Some(0) => (),
+        _ => panic!("Missing depdendency: {}", x),
+    }
+}
+
+fn main() {
+    for dep in DEPS {
+        check(dep);
+    }
 }
