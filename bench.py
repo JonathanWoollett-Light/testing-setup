@@ -1,15 +1,23 @@
 import subprocess
+import sys
 
-# Checkout master
-subprocess.run(["git","checkout","master"])
-# Benchmark master
-subprocess.run(["cargo","bench","--bench", "benchmark", "--", "--save-baseline", "master"])
-# Checkout this
-subprocess.run(["git","checkout","test"])
-# Benchmark this
-subprocess.run(["cargo","bench","--bench", "benchmark", "--", "--save-baseline", "test"])
+source = sys.argv[1]
+target = sys.argv[2]
+
+print(f"source: {source}")
+print(f"target: {target}")
+
+# Checkout target
+# We can skip this step as we presume we are already checked out on this.
+# subprocess.run(["git","checkout","target"])
+# Benchmark target
+subprocess.run(["cargo","bench","--bench", "benchmark", "--", "--save-baseline", "target"])
+# Checkout source
+subprocess.run(["git","checkout",source])
+# Benchmark source
+subprocess.run(["cargo","bench","--bench", "benchmark", "--", "--save-baseline", "source"])
 # Compare benchmarks
-subprocess.run(["cargo","bench","--bench", "benchmark", "--", "--load-baseline","test","--baseline","master"])
+subprocess.run(["cargo","bench","--bench", "benchmark", "--", "--load-baseline","target","--baseline","source"])
 
 import os
 import json
