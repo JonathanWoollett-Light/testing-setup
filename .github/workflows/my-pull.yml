@@ -1,4 +1,4 @@
-name: Rust
+name: MyPull
 
 on:
   pull_request:
