@@ -1,0 +1,32 @@
+name: Pull
+
+on:
+  pull_request:
+    branches: [ "master" ]
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Build
+      run: rustup component add llvm-tools-preview
+      run: export RUSTFLAGS="-Cinstrument-coverage"
+      run: cargo build --verbose
+
+    - name: Test
+      run: LLVM_PROFILE_FILE="your_name-%p-%m.profraw" cargo test --verbose
+
+    - name: Coverage
+      run: curl -L https://github.com/mozilla/grcov/releases/latest/download/grcov-x86_64-unknown-linux-gnu.tar.bz2 | tar jxf -
+      run: ./grcov . --binary-path ./target/debug/ -s . -t lcov --branch --ignore-not-existing --ignore "/*" -o lcov.info
+      run: python3 coverage.py $GITHUB_HEAD_REF $GITHUB_BASE_REF lcov.info
+
+    - name: Benchmark
+      run: python3 bench.py $GITHUB_HEAD_REF $GITHUB_BASE_REF

@@ -9,15 +9,31 @@ print(f"target: {target}")
 
 # Checkout target
 # We can skip this step as we presume we are already checked out on this.
-# subprocess.run(["git","checkout","target"])
+# subprocess.run(["git", "checkout", target])
 # Benchmark target
-subprocess.run(["cargo","bench","--bench", "benchmark", "--", "--save-baseline", "target"])
+subprocess.run(
+    ["cargo", "bench", "--bench", "benchmark", "--", "--save-baseline", "target"]
+)
 # Checkout source
-subprocess.run(["git","checkout",source])
+subprocess.run(["git", "checkout", source])
 # Benchmark source
-subprocess.run(["cargo","bench","--bench", "benchmark", "--", "--save-baseline", "source"])
+subprocess.run(
+    ["cargo", "bench", "--bench", "benchmark", "--", "--save-baseline", "source"]
+)
 # Compare benchmarks
-subprocess.run(["cargo","bench","--bench", "benchmark", "--", "--load-baseline","target","--baseline","source"])
+subprocess.run(
+    [
+        "cargo",
+        "bench",
+        "--bench",
+        "benchmark",
+        "--",
+        "--load-baseline",
+        "target",
+        "--baseline",
+        "source",
+    ]
+)
 
 import os
 import json
@@ -27,7 +43,7 @@ MARGIN = 0.10
 changes = {}
 regressions = {}
 for fn in os.listdir("./target/criterion"):
-    change_file = open(f"./target/criterion/{fn}/change/estimates.json","r")
+    change_file = open(f"./target/criterion/{fn}/change/estimates.json", "r")
     change_json = json.loads(change_file.read())
     change_mean = change_json["mean"]["point_estimate"]
 
@@ -38,5 +54,9 @@ for fn in os.listdir("./target/criterion"):
 print(f"Changes: {changes}")
 print(f"Regressions: {regressions}")
 
+
+# Re-checkout target
+subprocess.run(["git", "checkout", target])
+
 if len(regressions) > 0:
-    raise("Regressions found.")
+    raise ("Regressions found.")
