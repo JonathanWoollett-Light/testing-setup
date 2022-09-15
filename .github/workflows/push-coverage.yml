@@ -14,7 +14,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - name: Coverage
+    - name: Calculate coverage
       run: |
         rustup component add llvm-tools-preview
         export RUSTFLAGS="-Cinstrument-coverage"
@@ -23,6 +23,13 @@ jobs:
         curl -L https://github.com/mozilla/grcov/releases/latest/download/grcov-x86_64-unknown-linux-gnu.tar.bz2 | tar jxf -
         rm lcov.info
         ./grcov . --binary-path ./target/debug/ -s . -t lcov --branch --ignore-not-existing --ignore "/*" -o lcov.info
-        git add lcov.info
-        git commit -m "Update coverage"
+    - name: Push updated coverage
+      env: 
+        CI_COMMIT_MESSAGE: Continuous Integration Code Coverage
+        CI_COMMIT_AUTHOR: Continuous Integration
+      run: |
+        git config --global user.name "${{ env.CI_COMMIT_AUTHOR }}"
+        git config --global user.email "username@users.noreply.github.com"
+        git pull
+        git commit -a -m "${{ env.CI_COMMIT_MESSAGE }}"
         git push

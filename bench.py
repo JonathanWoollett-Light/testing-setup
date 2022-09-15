@@ -1,24 +1,25 @@
 import subprocess
 import sys
 
-source = sys.argv[1]
-target = sys.argv[2]
+source = sys.argv[1] # test
+target = sys.argv[2] # master
 
 print(f"source: {source}")
 print(f"target: {target}")
 
-# Checkout target
+# Checkout branch
 # We can skip this step as we presume we are already checked out on this.
-# subprocess.run(["git", "checkout", target])
-# Benchmark target
-subprocess.run(
-    ["cargo", "bench", "--bench", "benchmark", "--", "--save-baseline", "target"]
-)
-# Checkout source
-subprocess.run(["git", "checkout", source])
-# Benchmark source
+# subprocess.run(["git", "checkout", source])
+
+# Benchmark branch
 subprocess.run(
     ["cargo", "bench", "--bench", "benchmark", "--", "--save-baseline", "source"]
+)
+# Checkout master
+subprocess.run(["git", "checkout", target])
+# Benchmark master
+subprocess.run(
+    ["cargo", "bench", "--bench", "benchmark", "--", "--save-baseline", "target"]
 )
 # Compare benchmarks
 subprocess.run(

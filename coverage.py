@@ -17,15 +17,12 @@ def get_coverage(file):
     )
     return coverage_percent
 
-
-source = sys.argv[1]
-target = sys.argv[2]
+source = sys.argv[1] # test
+target = sys.argv[2] # master
 output = sys.argv[3]
 
 print(f"source: {source}")
 print(f"target: {target}")
-
-subprocess.run(["sudo", "apt", "install", "lcov"])
 
 new_coverage_percent = get_coverage(output)
 print("--------------------------------------------------------------")
