@@ -34,7 +34,7 @@ jobs:
       run: |
         git config --global user.name github-actions
         git config --global user.email github-actions@github.com
-        git add ./$LCOV_FILE
-        git add ./$HTML_DIR/*
+        git add lcov.info
+        git add coverage/*
         git commit -a -m "Updated code coverage"
         git push
