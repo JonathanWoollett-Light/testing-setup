@@ -1,6 +1,8 @@
 use criterion::{black_box, criterion_group, criterion_main, Criterion};
 
 fn fibonacci(n: u64) -> u64 {
+    let a = 2;
+    let b = a + 3;
     match n {
         0 => 1,
         1 => 1,
