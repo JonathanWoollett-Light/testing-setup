@@ -15,9 +15,10 @@ jobs:
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Calculate coverage
+    - name: Re-generate coverage
       env:
         LCOV_FILE: lcov.info
+        HTML_DIR: coverage
       run: |
         rustup component add llvm-tools-preview
         export RUSTFLAGS="-Cinstrument-coverage"
@@ -26,10 +27,14 @@ jobs:
         curl -L https://github.com/mozilla/grcov/releases/latest/download/grcov-x86_64-unknown-linux-gnu.tar.bz2 | tar jxf -
         rm $LCOV_FILE
         ./grcov . --binary-path ./target/debug/ -s . -t lcov --branch --ignore-not-existing --ignore "/*" -o $LCOV_FILE
+    - name: Re-generate coverage html
+      continue-on-error: true
+      run: ./grcov . --binary-path ./target/debug/ -s . -t html --branch --ignore-not-existing --ignore "/*" -o $HTML_DIR
     - name: Push updated coverage
       run: |
         git config --global user.name github-actions
         git config --global user.email github-actions@github.com
-        git add lcov.info
+        git add $LCOV_FILE
+        git add $HTML_DIR/*
         git commit -a -m "Updated code coverage"
         git push
