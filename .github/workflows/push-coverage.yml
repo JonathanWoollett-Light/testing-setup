@@ -15,14 +15,16 @@ jobs:
     - uses: actions/checkout@v3
 
     - name: Calculate coverage
+      env:
+        LCOV_FILE: lcov.info
       run: |
         rustup component add llvm-tools-preview
         export RUSTFLAGS="-Cinstrument-coverage"
         cargo build --verbose
         LLVM_PROFILE_FILE="your_name-%p-%m.profraw" cargo test --verbose
         curl -L https://github.com/mozilla/grcov/releases/latest/download/grcov-x86_64-unknown-linux-gnu.tar.bz2 | tar jxf -
-        rm lcov.info
-        ./grcov . --binary-path ./target/debug/ -s . -t lcov --branch --ignore-not-existing --ignore "/*" -o lcov.info
+        rm $LCOV_FILE
+        ./grcov . --binary-path ./target/debug/ -s . -t lcov --branch --ignore-not-existing --ignore "/*" -o $LCOV_FILE
     - name: Push updated coverage
       env: 
         CI_COMMIT_MESSAGE: Continuous Integration Code Coverage

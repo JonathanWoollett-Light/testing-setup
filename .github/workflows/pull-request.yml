@@ -23,12 +23,14 @@ jobs:
       run: LLVM_PROFILE_FILE="your_name-%p-%m.profraw" cargo test --verbose
 
     - name: Coverage
+      env:
+        OLD_LCOV_FILE: lcov.info
+        NEW_LCOV_FILE: new_lcov.info
       run: |
         curl -L https://github.com/mozilla/grcov/releases/latest/download/grcov-x86_64-unknown-linux-gnu.tar.bz2 | tar jxf -
-        rm lcov.info
-        ./grcov . --binary-path ./target/debug/ -s . -t lcov --branch --ignore-not-existing --ignore "/*" -o lcov.info
-        sudo apt install lcov
-        python3 coverage.py $GITHUB_HEAD_REF $GITHUB_BASE_REF lcov.info
+        ./grcov . --binary-path ./target/debug/ -s . -t lcov --branch --ignore-not-existing --ignore "/*" -o $NEW_LCOV_FILE
+        sudo apt install $NEW_LCOV_FILE
+        python3 coverage.py $GITHUB_HEAD_REF $GITHUB_BASE_REF $NEW_LCOV_FILE $OLD_LCOV_FILE
 
     - name: Benchmark
       run: python3 bench.py $GITHUB_HEAD_REF $GITHUB_BASE_REF

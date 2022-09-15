@@ -19,7 +19,8 @@ def get_coverage(file):
 
 source = sys.argv[1] # test
 target = sys.argv[2] # master
-output = sys.argv[3]
+output = sys.argv[3] # test lcov file
+old_lcov = sys.argv[4] # master lcov file
 
 print(f"source: {source}")
 print(f"target: {target}")
@@ -31,20 +32,12 @@ print(
 )
 print("--------------------------------------------------------------")
 
-# Stash source coverage
-subprocess.run(["git", "stash"])
-# Checkout coverage on target
-subprocess.run(["git", "checkout", target, output])
-
-old_coverage_percent = get_coverage(output)
+old_coverage_percent = get_coverage(old_lcov)
 print("--------------------------------------------------------------")
 print(
     f"old_coverage_percent: {old_coverage_percent}%",
 )
 print("--------------------------------------------------------------")
-
-# Pop stashed source coverage
-subprocess.run(["git", "stash", "pop"], capture_output=True)
 
 if new_coverage_percent < old_coverage_percent:
     raise ("Coverage regression found.")
