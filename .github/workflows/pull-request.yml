@@ -3,6 +3,9 @@ name: Pull Request
 on:
   pull_request:
     branches: [ "master" ]
+    paths:
+      - "**.rs"
+      - "**.toml"
 
 env:
   CARGO_TERM_COLOR: always
