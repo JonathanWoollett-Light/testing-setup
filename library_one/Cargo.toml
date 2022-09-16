@@ -1,4 +1,9 @@
 [package]
 name = "library_one"
 version = "0.1.0"
-edition = "2018"
+edition = "2021"
+
+[dependencies]
+
+[build-dependencies]
+build-checks = { version = "0.1.0", path="../build-checks" }

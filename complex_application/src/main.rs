@@ -1,5 +1,5 @@
 // At crate root we adjust clippy settings.
-#![warn(clippy::pedantic)]
+#![warn(clippy::pedantic, clippy::restriction)]
 
 pub use library_one::div;
 
@@ -21,6 +21,10 @@ fn main() {
     let c: u8 = u8::try_from(a).unwrap();
     println!("done {}", c);
     println!("true = {}", its_true());
+
+    unsafe {
+        println!("something boring");
+    }
 }
 
 fn add(a: i32, b: i32) -> i32 {

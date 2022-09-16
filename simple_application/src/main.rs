@@ -1,5 +1,5 @@
 // At crate root we adjust clippy settings.
-#![warn(clippy::pedantic)]
+#![warn(clippy::pedantic, clippy::restriction)]
 
 pub use library_one::div;
 

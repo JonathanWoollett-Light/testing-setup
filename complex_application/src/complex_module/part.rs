@@ -7,6 +7,6 @@ mod tests {
     use super::*;
     #[test]
     fn flip_test() {
-        assert_eq!(flip(2),-2);
+        assert_eq!(flip(2), -2);
     }
 }
