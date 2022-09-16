@@ -21,7 +21,7 @@ jobs:
         cargo audit
 
     - name: Format
-      run: cargo fmt --check -- --color always
+      run: cargo fmt --check
 
     - name: Build
       run: |
@@ -35,15 +35,12 @@ jobs:
     - name: Clippy
       run: cargo clippy --tests -- --deny warnings
 
-    - name: Download grcov
-      run: curl -L https://github.com/mozilla/grcov/releases/latest/download/grcov-x86_64-unknown-linux-gnu.tar.bz2 | tar jxf -
-    - name: Generate lcov
-      continue-on-error: true
-      run: ./grcov . --binary-path ./target/debug/ -s . -t lcov --branch --ignore-not-existing --ignore "/*" -o $NEW_LCOV_FILE 
-    - name: Download lcov
-      run: sudo apt install lcov
-    - name: Compare coverage
-      run: python3 coverage.py $GITHUB_HEAD_REF $GITHUB_BASE_REF $NEW_LCOV_FILE $OLD_LCOV_FILE
+    - name: Coverage
+      - run: curl -L https://github.com/mozilla/grcov/releases/latest/download/grcov-x86_64-unknown-linux-gnu.tar.bz2 | tar jxf -
+      - run: ./grcov . --binary-path ./target/debug/ -s . -t lcov --branch --ignore-not-existing --ignore "/*" -o $NEW_LCOV_FILE 
+        continue-on-error: true
+      - run: sudo apt install lcov
+      - run: python3 coverage.py $GITHUB_HEAD_REF $GITHUB_BASE_REF $NEW_LCOV_FILE $OLD_LCOV_FILE
 
     - name: Benchmark
       run: python3 bench.py $GITHUB_HEAD_REF $GITHUB_BASE_REF
