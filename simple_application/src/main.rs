@@ -1,5 +1,6 @@
 // At crate root we adjust clippy settings.
 #![warn(clippy::pedantic, clippy::restriction)]
+#![allow(clippy::blanket_clippy_restriction_lints)]
 
 pub use library_one::div;
 
