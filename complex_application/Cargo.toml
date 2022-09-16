@@ -11,9 +11,6 @@ library_one = { version="0.1.0", path="../library_one" }
 [dev-dependencies]
 criterion = "0.4.0"
 
-[build-dependencies]
-build-checks = { version = "0.1.0", path="../build-checks" }
-
 [[bench]]
 name = "benchmark"
 harness = false

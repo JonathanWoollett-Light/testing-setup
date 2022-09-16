@@ -14,8 +14,6 @@ fn check(x: &str) {
 }
 
 fn main() {
-    build_checks::check(env!("CARGO_PKG_NAME"));
-
     #[cfg(unix)]
     for dep in DEPS {
         check(dep);

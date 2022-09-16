@@ -7,6 +7,3 @@ edition = "2021"
 
 [dependencies]
 library_one = { version="0.1.0", path="../library_one" }
-
-[build-dependencies]
-build-checks = { version = "0.1.0", path="../build-checks" }
