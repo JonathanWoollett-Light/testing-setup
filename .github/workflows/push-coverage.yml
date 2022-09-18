@@ -6,9 +6,8 @@ on:
 
 env:
   CARGO_TERM_COLOR: always
-  LCOV_FILE: lcov.info
+  LCOV_FILE: ./ci/lcov.info
   HTML_DIR: coverage
-        
 jobs:
   coverage:
     runs-on: ubuntu-latest
@@ -22,9 +21,9 @@ jobs:
       run: |
         rustup install nightly
         RUSTDOCFLAGS="--enable-index-page -Zunstable-options" cargo +nightly doc
-        rm -rf ./doc
-        mkdir ./doc
-        mv ./target/doc ./
+        rm -rf ./ci/doc
+        mkdir ./ci/doc
+        mv ./target/doc ./ci
 
     - name: Re-generate coverage
       run: |

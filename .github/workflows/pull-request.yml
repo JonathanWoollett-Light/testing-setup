@@ -46,7 +46,7 @@ jobs:
     - name: Coverage - Download lcov
       run: sudo apt install lcov
     - name: Coverage - Compare
-      run: python3 coverage.py $GITHUB_HEAD_REF $GITHUB_BASE_REF $NEW_LCOV_FILE $OLD_LCOV_FILE
+      run: python3 ./ci-utils/coverage.py $GITHUB_HEAD_REF $GITHUB_BASE_REF $NEW_LCOV_FILE $OLD_LCOV_FILE
 
     - name: Benchmark
-      run: python3 bench.py $GITHUB_HEAD_REF $GITHUB_BASE_REF
+      run: python3 ./ci-utils/bench.py $GITHUB_HEAD_REF $GITHUB_BASE_REF

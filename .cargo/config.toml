@@ -1,5 +1,0 @@
-[env]
-AUDIT = "true"
-FMT = "fix"
-CLIPPY = "deny"
-SIZE = "true"
