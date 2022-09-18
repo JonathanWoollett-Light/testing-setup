@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":[["add",""],["div",""],["main",""]],"mod":[["complex_module",""],["simple_module",""]]};
