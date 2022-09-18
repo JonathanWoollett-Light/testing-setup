@@ -6,6 +6,5 @@
 members = [
     "complex_application",
     "simple_application",
-    "library_one",
-    "build-checks"
+    "library_one"
 ]

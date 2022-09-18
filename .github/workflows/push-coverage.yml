@@ -18,8 +18,14 @@ jobs:
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
 
+    - name: Re-generate rustdoc
+      run: |
+        RUSTDOCFLAGS="--enable-index-page -Zunstable-options" cargo +nightly doc
+        rm -rf ./doc
+        mkdir ./doc
+        mv ./target/doc ./doc/
+
     - name: Re-generate coverage
-      
       run: |
         rustup component add llvm-tools-preview
         export RUSTFLAGS="-Cinstrument-coverage"
@@ -31,11 +37,13 @@ jobs:
     - name: Re-generate coverage html
       continue-on-error: true
       run: ./grcov . --binary-path ./target/debug/ -s . -t html --branch --ignore-not-existing --ignore "/*" -o $HTML_DIR
-    - name: Push updated coverage
+    
+    - name: Push updates
       run: |
         git config --global user.name github-actions
         git config --global user.email github-actions@github.com
         git add $LCOV_FILE
         git add $HTML_DIR/*
-        git commit -a -m "Updated code coverage"
+        git add ./doc/*
+        git commit -a -m "Updated code coverage and rustdoc."
         git push
