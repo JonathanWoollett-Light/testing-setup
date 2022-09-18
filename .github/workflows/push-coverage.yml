@@ -20,6 +20,7 @@ jobs:
 
     - name: Re-generate rustdoc
       run: |
+        rustup install nightly
         RUSTDOCFLAGS="--enable-index-page -Zunstable-options" cargo +nightly doc
         rm -rf ./doc
         mkdir ./doc
