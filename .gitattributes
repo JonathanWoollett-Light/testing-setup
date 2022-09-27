@@ -1,2 +1,2 @@
-ci/doc/* linguist-vendored
-ci/coverage/* linguist-vendored
+doc/* linguist-vendored
+coverage/* linguist-vendored
