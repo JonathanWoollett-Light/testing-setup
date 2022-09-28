@@ -1,7 +1,6 @@
 import subprocess
 import sys
 
-
 def get_coverage(file):
     coverage_summary = subprocess.run(
         ["lcov", "--summary", file], capture_output=True

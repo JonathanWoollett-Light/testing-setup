@@ -1,0 +1,12 @@
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  - name: Check commit message
+    run: python ./ci/coverage ${{ github.event.head_commit.message }}
