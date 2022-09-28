@@ -13,4 +13,4 @@ jobs:
   check:
     runs-on: ubuntu-latest
     steps:
-      - run: python ./ci/coverage ${{ github.event.head_commit.message }}
+      - run: python ./ci/commit.py ${{ github.event.head_commit.message }}
