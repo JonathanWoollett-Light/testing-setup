@@ -23,7 +23,7 @@ jobs:
         key: build
         path: |
           ./target
-          ./grcov
+          ./grcov.tar.bz2
 
     - name: Install nightly
       run: rustup install nightly
@@ -48,7 +48,7 @@ jobs:
         LLVM_PROFILE_FILE="your_name-%p-%m.profraw" cargo test --verbose
         rm $LCOV_FILE
         ./grcov . --binary-path ./target/debug/ -s . -t lcov --branch --ignore-not-existing --ignore "/*" -o $LCOV_FILE
-        
+
     - name: Re-generate coverage html
       continue-on-error: true
       run: ./grcov . --binary-path ./target/debug/ -s . -t html --branch --ignore-not-existing --ignore "/*" -o $HTML_DIR
