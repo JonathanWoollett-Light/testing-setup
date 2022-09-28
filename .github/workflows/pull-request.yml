@@ -30,21 +30,26 @@ jobs:
       run: |
         rustup component add llvm-tools-preview
         export RUSTFLAGS="-Cinstrument-coverage"
-        cargo build --verbose
+        cargo build
 
     - name: Test
-      run: LLVM_PROFILE_FILE="your_name-%p-%m.profraw" cargo test --verbose
+      run: LLVM_PROFILE_FILE="your_name-%p-%m.profraw" cargo test
 
     - name: Clippy
       run: cargo clippy --tests -- --deny warnings
 
     - name: Coverage - Download grcov
-      run: curl -L https://github.com/mozilla/grcov/releases/latest/download/grcov-x86_64-unknown-linux-gnu.tar.bz2 | tar jxf -
+      run: |
+        wget -nc -q -O "grcov.tar.bz2" "https://github.com/mozilla/grcov/releases/latest/download/grcov-x86_64-unknown-linux-gnu.tar.bz2"
+        tar jxf grcov.tar.bz2
+    
     - name: Coverage - Generate lcov
       continue-on-error: true
       run: ./grcov . --binary-path ./target/debug/ -s . -t lcov --branch --ignore-not-existing --ignore "/*" -o $NEW_LCOV_FILE 
-    - name: Coverage - Download lcov
+    
+    - name: Coverage - Install lcov
       run: sudo apt install lcov
+    
     - name: Coverage - Compare
       run: python3 ./ci/coverage.py $GITHUB_HEAD_REF $GITHUB_BASE_REF ./ci/$NEW_LCOV_FILE ./ci/$OLD_LCOV_FILE
 

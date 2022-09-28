@@ -35,21 +35,23 @@ jobs:
         mkdir ./ci/doc
         mv ./target/doc ./ci
 
-    - name: Get grcov
+    - name: Coverage - Download grcov
       run: |
         wget -nc -q -O "grcov.tar.bz2" "https://github.com/mozilla/grcov/releases/latest/download/grcov-x86_64-unknown-linux-gnu.tar.bz2"
         tar jxf grcov.tar.bz2
 
-    - name: Re-generate coverage
+    - name: Coverage - Profile
       run: |
         rustup component add llvm-tools-preview
         export RUSTFLAGS="-Cinstrument-coverage"
-        cargo build --verbose
-        LLVM_PROFILE_FILE="your_name-%p-%m.profraw" cargo test --verbose
+        cargo build
+        LLVM_PROFILE_FILE="your_name-%p-%m.profraw" cargo test
         rm $LCOV_FILE
-        ./grcov . --binary-path ./target/debug/ -s . -t lcov --branch --ignore-not-existing --ignore "/*" -o $LCOV_FILE
 
-    - name: Re-generate coverage html
+    - name: Coverage - Generate lcov
+      run: ./grcov . --binary-path ./target/debug/ -s . -t lcov --branch --ignore-not-existing --ignore "/*" -o $LCOV_FILE
+
+    - name: Coverage - Generate html
       continue-on-error: true
       run: ./grcov . --binary-path ./target/debug/ -s . -t html --branch --ignore-not-existing --ignore "/*" -o $HTML_DIR
     
