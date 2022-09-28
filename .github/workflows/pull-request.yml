@@ -24,7 +24,7 @@ jobs:
         cargo audit
 
     - name: Format
-      run: cargo fmt --check -- --color always
+      run: cargo fmt --check
 
     - name: Build
       run: |
