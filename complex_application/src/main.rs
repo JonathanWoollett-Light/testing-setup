@@ -30,7 +30,7 @@ fn main() {
 fn add(a: i32, b: i32) -> i32 {
     a + b
 }
-
+// Small doc change.
 /// Unit tests
 #[cfg(test)]
 mod tests {
