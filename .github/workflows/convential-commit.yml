@@ -1,3 +1,5 @@
+name: Conventional commit
+
 on:
   push:
     branches: [ "master" ]
