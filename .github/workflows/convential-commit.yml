@@ -10,5 +10,7 @@ env:
   CARGO_TERM_COLOR: always
 
 jobs:
-  - name: Check commit message
-    run: python ./ci/coverage ${{ github.event.head_commit.message }}
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - run: python ./ci/coverage ${{ github.event.head_commit.message }}
