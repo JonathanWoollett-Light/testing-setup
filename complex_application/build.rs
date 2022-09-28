@@ -12,7 +12,7 @@ fn check(x: &str) {
         _ => panic!("Missing dependency: {}", x),
     }
 }
-
+// Some doc
 fn main() {
     #[cfg(unix)]
     for dep in DEPS {
