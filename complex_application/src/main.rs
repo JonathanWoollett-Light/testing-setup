@@ -49,4 +49,9 @@ mod tests {
     fn dumb() {
         assert!(its_true());
     }
+    #[allow(clippy::nonminimal_bool)]
+    #[test]
+    fn some_dumber() {
+        assert!(!!its_true());
+    }
 }
