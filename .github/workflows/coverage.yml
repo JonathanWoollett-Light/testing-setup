@@ -15,12 +15,25 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+    
+    - name: Format
+      run: cargo fmt --check
+      
+    - name: Audit
+      run: cargo audit
+      
     - name: Build
       run: cargo build --verbose
+      
+    - name: Clippy
+      run: cargo clippy --tests -- --deny warnings
+      
     - name: Test
       run: cargo test --verbose
+      
     - name: rust-grcov
       uses: actions-rs/grcov@v0.1.5
+      
     - name: Codecov
       uses: codecov/codecov-action@v3.1.0
       with:
