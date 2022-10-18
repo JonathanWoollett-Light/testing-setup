@@ -50,10 +50,8 @@
 <span id="50">50</span>
 <span id="51">51</span>
 <span id="52">52</span>
-<span id="53">53</span>
-<span id="54">54</span>
 </pre><pre class="rust"><code><span class="comment">// At crate root we adjust clippy settings.
-</span><span class="attribute">#![warn(clippy::pedantic, clippy::restriction)]
+</span><span class="attribute">#![warn(clippy::pedantic)]
 
 </span><span class="kw">pub use </span>library_one::div;
 
@@ -76,9 +74,7 @@
     <span class="macro">println!</span>(<span class="string">&quot;done {}&quot;</span>, c);
     <span class="macro">println!</span>(<span class="string">&quot;true = {}&quot;</span>, its_true());
 
-    <span class="kw">unsafe </span>{
-        <span class="macro">println!</span>(<span class="string">&quot;something boring&quot;</span>);
-    }
+    <span class="macro">println!</span>(<span class="string">&quot;something boring&quot;</span>);
 }
 
 <span class="kw">fn </span>add(a: i32, b: i32) -&gt; i32 {
@@ -103,7 +99,7 @@
     }
     <span class="attribute">#[test]
     </span><span class="kw">fn </span>dumb() {
-        <span class="macro">assert_eq!</span>(its_true(), <span class="bool-val">true</span>);
+        <span class="macro">assert!</span>(its_true());
     }
 }
 </code></pre></div>
