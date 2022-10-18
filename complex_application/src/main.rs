@@ -1,5 +1,5 @@
 // At crate root we adjust clippy settings.
-#![warn(clippy::pedantic, clippy::restriction)]
+#![warn(clippy::pedantic)]
 
 pub use library_one::div;
 
@@ -22,9 +22,7 @@ fn main() {
     println!("done {}", c);
     println!("true = {}", its_true());
 
-    unsafe {
-        println!("something boring");
-    }
+    println!("something boring");
 }
 
 fn add(a: i32, b: i32) -> i32 {

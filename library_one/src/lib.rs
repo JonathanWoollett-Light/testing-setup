@@ -1,5 +1,5 @@
 // At crate root we adjust clippy settings.
-#![warn(clippy::pedantic, clippy::restriction)]
+#![warn(clippy::pedantic)]
 
 #[must_use]
 pub fn div(a: i32, b: i32) -> i32 {
