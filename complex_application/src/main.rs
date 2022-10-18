@@ -47,6 +47,6 @@ mod tests {
     }
     #[test]
     fn dumb() {
-        assert_eq!(its_true(), true);
+        assert!(its_true());
     }
 }
