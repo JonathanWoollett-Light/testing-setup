@@ -6,8 +6,6 @@ on:
 
 env:
   CARGO_TERM_COLOR: always
-  LCOV_FILE: ./ci/lcov.info
-  HTML_DIR: ./ci/coverage
   
 jobs:
   coverage:
@@ -24,7 +22,6 @@ jobs:
         key: build
         path: |
           ./target
-          ./grcov.tar.bz2
 
     - name: Install nightly
       run: rustup install nightly
@@ -36,36 +33,10 @@ jobs:
         mkdir ./ci/doc
         mv ./target/doc ./ci
 
-
-    - name: Coverage - Download grcov
-      run: wget -nc -q -O "grcov.tar.bz2" "https://github.com/mozilla/grcov/releases/latest/download/grcov-x86_64-unknown-linux-gnu.tar.bz2"
-      # When the file is already downloaded it will exit with 1
-      continue-on-error: true
-
-    - name: Coverage - Extract grcov
-      run: tar jxf grcov.tar.bz2
-
-    - name: Coverage - Profile
-      run: |
-        rustup component add llvm-tools-preview
-        export RUSTFLAGS="-Cinstrument-coverage"
-        cargo build
-        LLVM_PROFILE_FILE="your_name-%p-%m.profraw" cargo test
-        rm $LCOV_FILE
-
-    - name: Coverage - Generate lcov
-      run: ./grcov . --binary-path ./target/debug/ -s . -t lcov --branch --ignore-not-existing --ignore "/*" -o $LCOV_FILE
-
-    - name: Coverage - Generate html
-      continue-on-error: true
-      run: ./grcov . --binary-path ./target/debug/ -s . -t html --branch --ignore-not-existing --ignore "/*" -o $HTML_DIR
-    
-    - name: Push updates
+    - name: Push updated docs
       run: |
         git config --global user.name github-actions[bot]
         git config --global user.email github-actions[bot]@users.noreply.github.com
-        git add $LCOV_FILE
-        git add $HTML_DIR/*
         git add ./ci/doc/*
-        git commit -a -m "Updated code coverage and rustdoc."
+        git commit -a -m "Updated rustdoc."
         git push
