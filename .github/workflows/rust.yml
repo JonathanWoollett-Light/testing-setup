@@ -18,9 +18,6 @@ jobs:
         key: build
         path: ./target
     
-    - name: Add component
-      run: rustup component add llvm-tools-preview
-    
     - name: Format
       run: cargo fmt --check
       
@@ -34,7 +31,9 @@ jobs:
       run: cargo clippy --tests -- --deny warnings
       
     - name: Test
-      run: env RUSTFLAGS="-C instrument-coverage" RUSTDOCFLAGS="-C instrument-coverage -Z unstable-options --persist-doctests ./target/debug/doctestbins" LLVM_PROFILE_FILE="coverage-%p-%m.profraw" cargo +nightly test
+      run: |
+        rustup component add llvm-tools-preview
+        env RUSTFLAGS="-C instrument-coverage" RUSTDOCFLAGS="-C instrument-coverage -Z unstable-options --persist-doctests ./target/debug/doctestbins" LLVM_PROFILE_FILE="coverage-%p-%m.profraw" cargo +nightly test
 
     - name: Coverage
       run: |
