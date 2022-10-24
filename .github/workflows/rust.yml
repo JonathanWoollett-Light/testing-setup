@@ -33,7 +33,11 @@ jobs:
     - name: Test
       run: |
         rustup component add llvm-tools-preview
-        env RUSTFLAGS="-C instrument-coverage" RUSTDOCFLAGS="-C instrument-coverage -Z unstable-options --persist-doctests ./target/debug/doctestbins" LLVM_PROFILE_FILE="coverage-%p-%m.profraw" cargo +nightly test
+        env \
+          RUSTFLAGS="-C instrument-coverage" \
+          RUSTDOCFLAGS="-C instrument-coverage -Z unstable-options --persist-doctests ./target/debug/doctestbins" \
+          LLVM_PROFILE_FILE="coverage-%p-%m.profraw" \
+          cargo +nightly test
 
     - name: Coverage
       run: |
