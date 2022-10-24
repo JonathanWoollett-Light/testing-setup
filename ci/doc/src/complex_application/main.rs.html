@@ -50,6 +50,11 @@
 <span id="50">50</span>
 <span id="51">51</span>
 <span id="52">52</span>
+<span id="53">53</span>
+<span id="54">54</span>
+<span id="55">55</span>
+<span id="56">56</span>
+<span id="57">57</span>
 </pre><pre class="rust"><code><span class="comment">// At crate root we adjust clippy settings.
 </span><span class="attribute">#![warn(clippy::pedantic)]
 
@@ -100,6 +105,11 @@
     <span class="attribute">#[test]
     </span><span class="kw">fn </span>dumb() {
         <span class="macro">assert!</span>(its_true());
+    }
+    <span class="attribute">#[allow(clippy::nonminimal_bool)]
+    #[test]
+    </span><span class="kw">fn </span>some_dumber() {
+        <span class="macro">assert!</span>(!!its_true());
     }
 }
 </code></pre></div>
