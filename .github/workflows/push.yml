@@ -2,21 +2,21 @@ name: Rust
 
 on:
   push:
-  pull_request:
-    types: [opened, reopened]
+  # pull_request:
+  #   types: [opened, reopened]
 
 env:
   CARGO_TERM_COLOR: always
 
 jobs:
-  gitlint:
+  job1:
     runs-on: ubuntu-latest
     - steps:
       - name: Install gitlint
         run: apt install gitlint
       - name: Run gitlint
         run: gitlint
-  build:
+  job2:
     runs-on: ubuntu-latest
 
     steps:
