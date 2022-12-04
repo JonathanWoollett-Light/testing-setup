@@ -4,7 +4,7 @@ const DEPS: [&str; 2] = ["gcc", "python3"];
 #[cfg(unix)]
 fn check(x: &str) {
     let output = std::process::Command::new("dpkg")
-        .args(&["-l", x])
+        .args(["-l", x])
         .output()
         .unwrap();
     match output.status.code() {

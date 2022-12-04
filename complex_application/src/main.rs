@@ -19,7 +19,7 @@ fn main() {
 
     let _b = sub_flip(x, y);
     let c: u8 = u8::try_from(a).unwrap();
-    println!("done {}", c);
+    println!("done {c}");
     println!("true = {}", its_true());
 
     println!("something boring");
