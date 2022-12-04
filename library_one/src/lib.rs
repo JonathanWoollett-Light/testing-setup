@@ -2,7 +2,7 @@
 #![warn(clippy::pedantic)]
 
 #[must_use]
-pub fn div(a: i32, b: i32) -> i32 {
+pub fn div(a: u32, b: u32) -> u32 {
     a / b
 }
 
