@@ -37,11 +37,12 @@ jobs:
         rm -rf ./ci/doc
         mkdir ./ci/doc
         mv ./target/doc ./ci
+        
 
     - name: Push updated docs
       run: |
         git config --global user.name github-actions[bot]
         git config --global user.email github-actions[bot]@users.noreply.github.com
-        git add ./ci/doc/*
+        git add ./ci/doc/* :!.lock
         git commit -a -m "Updated rustdoc."
         git push
