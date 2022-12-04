@@ -1,4 +1,4 @@
-name: Rust
+name: Push
 
 on:
   push:
@@ -9,14 +9,14 @@ env:
   CARGO_TERM_COLOR: always
 
 jobs:
-  job1:
+  gitlint:
     runs-on: ubuntu-latest
     steps:
       - name: Install gitlint
         run: apt install gitlint
       - name: Run gitlint
         run: gitlint
-  job2:
+  rust:
     runs-on: ubuntu-latest
 
     steps:
