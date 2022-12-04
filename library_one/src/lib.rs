@@ -5,6 +5,12 @@
 pub fn div(a: i32, b: i32) -> i32 {
     a / b
 }
+
+#[must_use]
+pub fn plus(x: i32) -> i32 {
+    x + 1
+}
+
 /// Units tests
 #[cfg(test)]
 mod tests {
