@@ -11,7 +11,7 @@ env:
 jobs:
   job1:
     runs-on: ubuntu-latest
-    - steps:
+    steps:
       - name: Install gitlint
         run: apt install gitlint
       - name: Run gitlint
