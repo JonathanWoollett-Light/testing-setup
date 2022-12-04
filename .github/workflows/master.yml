@@ -1,4 +1,4 @@
-name: Update docs
+name: Push Master
 
 on:
   push:
@@ -15,7 +15,7 @@ jobs:
         with:
           release-type: node
           package-name: release-please-action
-  coverage:
+  rustdoc:
     runs-on: ubuntu-latest
 
     steps:
