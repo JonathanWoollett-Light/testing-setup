@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"fn":[["div",""]]};
+window.SIDEBAR_ITEMS = {"fn":[["div",""],["plus",""]]};
