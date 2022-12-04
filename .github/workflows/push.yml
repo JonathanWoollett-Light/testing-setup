@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Install gitlint
-        run: apt install gitlint
+        run: sudo apt install gitlint
       - name: Run gitlint
         run: gitlint
   rust:
