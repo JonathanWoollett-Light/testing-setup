@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":[["its_true","Returns `true`."]]};

@@ -1,0 +1,58 @@
+name: Push
+
+on:
+  push:
+  # pull_request:
+  #   types: [opened, reopened]
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  gitlint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install gitlint
+        run: sudo apt install gitlint
+        
+      - name: Run gitlint
+        run: gitlint
+  rust:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Format
+      run: cargo fmt --check
+      
+    - name: Audit
+      run: cargo audit
+      
+    - name: Check
+      run: cargo check
+      
+    - name: Clippy
+      run: cargo clippy --tests -- --deny warnings
+      
+    - name: Test
+      run: |
+        rustup install nightly
+        rustup component add llvm-tools-preview
+        env \
+          RUSTFLAGS="-C instrument-coverage" \
+          RUSTDOCFLAGS="-C instrument-coverage -Z unstable-options --persist-doctests ./target/debug/doctestbins" \
+          LLVM_PROFILE_FILE="coverage-%p-%m.profraw" \
+          cargo +nightly test
+
+    - name: Coverage
+      run: |
+        cargo install grcov
+        grcov . --binary-path ./target/debug/ -s . -t lcov --branch --ignore-not-existing --ignore "/*" -o lcov.info
+      
+    - name: Codecov
+      uses: codecov/codecov-action@v3
+      with:
+        token: ea86d38b-9529-40bd-a1cb-5e8da5986799

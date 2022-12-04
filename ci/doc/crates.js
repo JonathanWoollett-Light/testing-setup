@@ -1,0 +1,1 @@
+window.ALL_CRATES = ["complex_application","library_one","simple_application"];
