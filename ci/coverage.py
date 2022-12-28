@@ -1,6 +1,7 @@
 import subprocess
 import sys
 
+
 def get_coverage(file):
     coverage_summary = subprocess.run(
         ["lcov", "--summary", file], capture_output=True
@@ -16,10 +17,11 @@ def get_coverage(file):
     )
     return coverage_percent
 
-source = sys.argv[1] # test
-target = sys.argv[2] # master
-output = sys.argv[3] # test lcov file
-old_lcov = sys.argv[4] # master lcov file
+
+source = sys.argv[1]  # test
+target = sys.argv[2]  # master
+output = sys.argv[3]  # test lcov file
+old_lcov = sys.argv[4]  # master lcov file
 
 print(f"source: {source}")
 print(f"target: {target}")

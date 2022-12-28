@@ -1,8 +1,8 @@
 import subprocess
 import sys
 
-source = sys.argv[1] # test
-target = sys.argv[2] # master
+source = sys.argv[1]  # test
+target = sys.argv[2]  # master
 
 print(f"source: {source}")
 print(f"target: {target}")

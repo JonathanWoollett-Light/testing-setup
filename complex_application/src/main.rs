@@ -35,23 +35,28 @@ mod tests {
     use super::*;
     #[test]
     fn add_test_1() {
+        std::thread::sleep(std::time::Duration::from_secs(1));
         assert_eq!(add(1, 2), 3);
     }
     #[test]
     fn add_test_2() {
+        std::thread::sleep(std::time::Duration::from_secs(1));
         assert_eq!(add(2, 3), 5);
     }
     #[test]
     fn add_test_3() {
+        std::thread::sleep(std::time::Duration::from_secs(1));
         assert_eq!(add(3, 4), 7);
     }
     #[test]
     fn dumb() {
+        std::thread::sleep(std::time::Duration::from_secs(1));
         assert!(its_true());
     }
     #[allow(clippy::nonminimal_bool)]
     #[test]
     fn some_dumber() {
+        std::thread::sleep(std::time::Duration::from_secs(1));
         assert!(!!its_true());
     }
 }
