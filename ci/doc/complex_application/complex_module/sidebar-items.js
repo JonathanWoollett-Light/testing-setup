@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"fn":[["sub_flip",""]],"mod":[["part",""]]};
+window.SIDEBAR_ITEMS = {"fn":["sub_flip"],"mod":["part"]};

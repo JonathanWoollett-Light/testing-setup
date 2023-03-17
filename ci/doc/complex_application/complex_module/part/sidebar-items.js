@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"fn":[["flip",""]]};
+window.SIDEBAR_ITEMS = {"fn":["flip"]};
